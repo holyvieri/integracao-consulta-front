@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: ${PROJECT_NAME:-ms-base}-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${DOCKER_IMAGE_NAME:-clinica-frontend}:${DOCKER_IMAGE_TAG:-latest}
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
