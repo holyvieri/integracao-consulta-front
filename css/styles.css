@@ -1,0 +1,98 @@
+/* ===========================
+   Sistema de Consultas Médicas
+   Estilos Customizados
+   =========================== */
+
+/* Login */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Cards */
+.card {
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+.table th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.btn-group-sm > .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Alerts */
+#alert-container .alert {
+  margin-bottom: 0.5rem;
+}
+
+/* Loading State */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Modal */
+.modal-body .row + .row {
+  margin-top: 1rem;
+}
+
+/* List Group - Materiais */
+#lista-materiais .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Badge */
+.badge {
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group .btn {
+    margin-bottom: 0.25rem;
+    border-radius: 0.375rem !important;
+  }
+}
+
+/* Detail items in modals */
+.detail-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.detail-value {
+  color: #212529;
+}
