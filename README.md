@@ -4,7 +4,7 @@ Frontend para o sistema de gerenciamento de consultas médicas.
 
 ## Estrutura do Projeto
 
-\`\`\`
+```
 frontend-clinica/
 ├── index.html          # Página principal
 ├── css/
@@ -23,15 +23,15 @@ frontend-clinica/
 │       ├── medicos.js
 │       └── consultas.js
 └── README.md
-\`\`\`
+```
 
 ## Configuração
 
 1. Edite o arquivo `js/config.js` para apontar para o endereço do backend:
 
-\`\`\`javascript
+```javascript
 API_BASE_URL: 'http://localhost:8080/api'
-\`\`\`
+```
 
 2. Certifique-se de que o backend está configurado para aceitar requisições CORS do frontend.
 
