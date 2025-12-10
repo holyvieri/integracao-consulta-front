@@ -40,8 +40,8 @@ API_BASE_URL: 'http://localhost:8080/api'
 ### Opção 1: Abrir diretamente
 Abra o arquivo `index.html` no navegador.
 
-### Opção 2: Servidor local (recomendado)
-\`\`\`bash
+### Opção 2: Servidor local
+```bash
 # Com Python 3
 python -m http.server 3000
 
@@ -50,7 +50,7 @@ npx serve .
 
 # Com VS Code
 # Instale a extensão "Live Server" e clique em "Go Live"
-\`\`\`
+```
 
 Acesse: `http://localhost:3000`
 
@@ -65,7 +65,7 @@ Acesse: `http://localhost:3000`
 ## Integração com Backend
 
 O frontend se comunica com os seguintes endpoints:
-
+```
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | POST | /recepcionista/login | Login |
@@ -77,7 +77,7 @@ O frontend se comunica com os seguintes endpoints:
 | POST | /consulta | Criar consulta |
 | PUT | /consulta/{id} | Atualizar consulta |
 | DELETE | /consulta/{id} | Cancelar consulta (notifica via RabbitMQ) |
-
+```
 ## Tecnologias
 
 - HTML5
@@ -85,3 +85,64 @@ O frontend se comunica com os seguintes endpoints:
 - JavaScript ES6+
 - Bootstrap 5.3
 - Bootstrap Icons
+
+## Docker
+
+### Executar apenas o frontend
+
+```bash
+# Build da imagem
+docker build -t clinica-frontend .
+
+# Rodar o container
+docker run -p 3000:80 clinica-frontend
+```
+
+Ou usando docker-compose:
+
+```bash
+docker-compose up -d
+```
+
+### Integrar com o backend
+
+Adicione o serviço do frontend no `docker-compose.yml` do backend:
+
+```yaml
+version: '3.8'
+
+services:
+  rabbitmq:
+    # ... configuração existente ...
+
+  consultas-ms:
+    # ... configuração existente ...
+
+  # Adicionar este serviço
+  frontend:
+    container_name: ${PROJECT_NAME:-ms-base}-frontend
+    build:
+      context: ../frontend-clinica  # Caminho relativo para o repo do frontend
+      dockerfile: Dockerfile
+    image: ${DOCKER_IMAGE_NAME:-clinica-frontend}:${DOCKER_IMAGE_TAG:-latest}
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    depends_on:
+      - consultas-ms
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+```
+
+### Variáveis de ambiente (opcional)
+```
+| Variável | Padrão | Descrição |
+|----------|--------|-----------|
+| PROJECT_NAME | ms-base | Prefixo dos containers |
+| FRONTEND_PORT | 3000 | Porta do frontend |
+| DOCKER_IMAGE_NAME | clinica-frontend | Nome da imagem |
+| DOCKER_IMAGE_TAG | latest | Tag da imagem |
+```
